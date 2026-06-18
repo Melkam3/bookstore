@@ -35,6 +35,7 @@ const getAllBooks=async(req,res)=>{
         }
 
     } catch (error) {
+      console.log("what",error)
         return res.status(500).send({message:error.message})
     }
 }

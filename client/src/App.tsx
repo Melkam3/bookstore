@@ -1,10 +1,16 @@
+import { Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import CreateBook from "./pages/CreateBook"
 
 function App() {
 
 
   return (
     <>
-      <h1 className="text-3xl text-center"></h1>
+    <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/books/create" element={<CreateBook/>}/>
+    </Routes>
     </>
   )
 }
