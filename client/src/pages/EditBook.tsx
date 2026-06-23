@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackButton from "../components/BackButton";
 import Spinning from "../components/Spinning";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form"; // 👈 Import useForm
 import { toast } from "react-toastify";
 
@@ -13,25 +13,43 @@ interface BookFormData {
   publishYear: number;
 }
 
-function CreateBook() {
-  const [loading, setLoading] = useState(true);
+function EditBook() {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const {id}= useParams()
+
   // 2. Initialize react-hook-form
   const { 
     register, 
     handleSubmit, 
+    reset,
     formState: { errors } 
   } = useForm<BookFormData>();
 
-
+    useEffect(()=>{
+     
+    axios
+      .get(`http://localhost:5000/books/${id}`)
+      .then((response) => {
+        setLoading(false);
+        reset(response.data)
+        
+      })
+      .catch((error) => {
+        setLoading(false);
+        const errorMessage = error.response?.data?.message || error.message || "Something went wrong";
+        toast.error(errorMessage);
+        console.error(error);
+      });
+  },[id, reset])
   // 3. This function executes ONLY if validation passes
   const onSubmit = (data: BookFormData) => {
     setLoading(true);
     axios
-      .post("http://localhost:5000/books/create", data)
+      .put(`http://localhost:5000/books/${id}`, data)
       .then(() => {
         setLoading(false);
-        toast.success("Created successfully");
+        toast.success("updated successfully");
         navigate("/");
       })
       .catch((error) => {
@@ -52,7 +70,7 @@ function CreateBook() {
         onSubmit={handleSubmit(onSubmit)} 
         className="flex flex-col p-4 rounded-2xl mt-10 border-2 border-blue-300 w-125 mx-auto shadow-2xl"
       >
-        <h1 className="text-center text-2xl mb-4">Create Book</h1>
+        <h1 className="text-center text-2xl mb-4">Update Book</h1>
         
         {/* TITLE INPUT */}
         <div className="my-2">
@@ -103,4 +121,4 @@ function CreateBook() {
   );
 }
 
-export default CreateBook;
+export default EditBook;
