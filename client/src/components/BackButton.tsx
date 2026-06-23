@@ -1,10 +1,15 @@
 import { BsArrowLeft } from "react-icons/bs"
+import { Link } from "react-router-dom"
 
 
 function BackButton() {
   return (
-    <div>
-     <BsArrowLeft  className="text-3xl bg-blue-500 m-4 p-2"/>
+    <div className="flex">
+     <Link to="/"
+     className=" text-2xl bg-blue-500 m-4 px-4 rounded-xl text-white">
+     <BsArrowLeft />
+     </Link>
+
     </div>
   )
 }

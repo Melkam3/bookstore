@@ -45,8 +45,8 @@ function Home() {
      onClick={()=>setShowType("card")}
      className="bg-blue-400 px-4 py-1 rounded-2xl text-white  hover:bg-blue-500 cursor-pointer">Card</button>
         </div>
-     <div className="flex justify-between items-center">
-        <h1 className="text-3xl">Book list</h1>
+     <div className="flex justify-between items-center px-16">
+        <h1 className="text-3xl ">Book list</h1>
        <Link to="/books/create" >
           <MdAddCircleOutline className="bg-blue-500 text-3xl rounded-full text-white "/>
        </Link>
