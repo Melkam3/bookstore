@@ -59,7 +59,7 @@ function Home() {
         ):showType ==="table" ?(
              <BooksTable books={books}/>
         ):(
-          <BooksCard/>
+          <BooksCard books={books}/>
         )
        }
 
